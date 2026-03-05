@@ -1,3 +1,2 @@
-import app from "../src/app.js";
-
-export default app;
+// Test setup file - intentionally left minimal for ES module compatibility
+export default {};
