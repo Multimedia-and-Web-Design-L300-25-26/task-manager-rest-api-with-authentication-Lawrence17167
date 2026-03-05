@@ -93,6 +93,7 @@ afterAll(async () => {
         const collection = collections[key];
         await collection.deleteMany({});
       }
+      await mongoose.connection.close();
     } catch (error) {
       console.error("Error cleaning up database:", error.message);
     }

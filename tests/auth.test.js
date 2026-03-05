@@ -30,21 +30,6 @@ describe("Auth Routes", () => {
     }
   });
 
-  afterAll(async () => {
-    // Clean up database after tests
-    if (mongoose.connection.readyState === 1) {
-      try {
-        const collections = mongoose.connection.collections;
-        for (const key in collections) {
-          const collection = collections[key];
-          await collection.deleteMany({});
-        }
-      } catch (error) {
-        console.error("Error cleaning up database:", error.message);
-      }
-    }
-  });
-
   let token;
 
   it("should register a user", async () => {
@@ -85,6 +70,7 @@ afterAll(async () => {
         const collection = collections[key];
         await collection.deleteMany({});
       }
+      await mongoose.connection.close();
     } catch (error) {
       console.error("Error cleaning up database:", error.message);
     }
