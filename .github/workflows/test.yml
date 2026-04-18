@@ -7,6 +7,18 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    services:
+      mongodb:
+        image: mongo:7
+        options: >-
+          --health-cmd mongosh
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 27017:27017
 
     steps:
       - uses: actions/checkout@v3
@@ -21,3 +33,6 @@ jobs:
 
       - name: Run tests
         run: npm test
+        env:
+          MONGO_URI: mongodb://localhost:27017/taskmanager-test
+          NODE_ENV: test
